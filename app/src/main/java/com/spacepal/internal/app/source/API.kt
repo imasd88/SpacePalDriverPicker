@@ -16,7 +16,7 @@ interface API {
     @get:GET("/v1/Role")
     val roles: Call<List<Role>>
 
-    @get:GET("/v1/Users/Me")
+    @get:GET("/v1/User/Me")
     val account: Call<Profile>
 
     @POST("/connect/token")
