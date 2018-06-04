@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        />
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp"
+        />
+    <TextView
+        android:id="@+id/tvRequestCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Request #34553"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+        />
+    <TextView
+        android:id="@+id/tvCompletionDue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Completion Due: 17/05/2018 14:00"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvRequestCode"
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+
+        />
+    <TextView
+        android:id="@+id/tvDeliveryDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delivery Date: 17/05/2018 16:00"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvCompletionDue"
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+
+        />
+    <TextView
+        android:id="@+id/tvLoadingBay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loading Bay: Bay 3"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvDeliveryDate"
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+
+        />
+
+    <TextView
+        android:id="@+id/tvZoneQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number of Zone: 2"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvLoadingBay"
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+        android:visibility="gone"
+        />
+    <View
+
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        app:layout_constraintTop_toBottomOf="@+id/tvZoneQty"
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+        app:layout_constraintEnd_toStartOf="@id/guidelineRight"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+
+        />
+
+</android.support.constraint.ConstraintLayout>

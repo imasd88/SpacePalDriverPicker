@@ -66,7 +66,7 @@ abstract class BaseActivity : AppCompatActivity(), Constant {
     fun showSettingsDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Need Permissions")
-        builder.setMessage("This app needs location permission to use this feature. You can grant them in app settings.")
+        builder.setMessage("This app needs Camera permission to use this feature. You can grant them in app settings.")
         builder.setPositiveButton("GOTO SETTINGS") { dialog, which ->
             dialog.cancel()
             openSettings()

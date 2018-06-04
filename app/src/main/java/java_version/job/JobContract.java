@@ -1,0 +1,29 @@
+package java_version.job;
+
+import com.spacepal.internal.app.BasePresenter;
+import com.spacepal.internal.app.BaseView;
+import com.spacepal.internal.app.model.response.JobItem;
+
+import java.util.List;
+
+/**
+ * Created by sidhu on 6/3/2018.
+ */
+
+public class JobContract {
+    interface View extends BaseView<Presenter>
+
+    {
+        void showJobs(List<JobItem> jobItemList);
+        void showMessage(String message);
+        void showProgressDialog( Boolean isInProgress);
+        void showOnErrorOnEmpty();
+    }
+
+
+    interface Presenter extends BasePresenter
+
+    {
+        void getJobs(String assignmentId);
+    }
+}

@@ -4,7 +4,8 @@ import com.spacepal.internal.app.model.ChangePassword
 import com.spacepal.internal.app.model.EmailBody
 import com.spacepal.internal.app.model.Profile
 import com.spacepal.internal.app.model.Role
-import com.spacepal.internal.app.model.response.Order
+import com.spacepal.internal.app.model.response.AssignmentResponse
+import com.spacepal.internal.app.model.response.JobsResponse
 import com.spacepal.internal.app.model.response.TokenResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -16,7 +17,7 @@ interface API {
     @get:GET("/v1/Role")
     val roles: Call<List<Role>>
 
-    @get:GET("/v1/Users/Me")
+    @get:GET("/v1/User/Me")
     val account: Call<Profile>
 
     @POST("/connect/token")
@@ -39,12 +40,14 @@ interface API {
     @POST("/v1/Users")
     fun updateAccount(@Body profile: Profile): Call<Void>
 
-    @GET("/v1/Order/Dash")
-    fun getOrders(@Query("role") role: String): Call<List<Order>>
-
     @POST("/v1/User/change-password")
     fun changePassword(@Body changePassword: ChangePassword): Call<Void>
 
+    @GET("/v1/Assignment")
+    fun getOrders(@Query("userId") userId: String,@Query("role") role: String): Call<AssignmentResponse>
+
+    @GET("/v1/Job")
+    fun getJobs(@Query("assignmentId") assignmentId: String): Call<JobsResponse>
 
 }
 

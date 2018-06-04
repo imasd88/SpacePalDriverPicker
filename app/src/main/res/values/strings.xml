@@ -13,4 +13,10 @@
     <string name="new_password">New Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="change_password">Change Password</string>
+    <string name="loading_bay">Loading Bay</string>
+    <string name="print_sticker">Print Sticker</string>
+    <string name="bundle_complete">Bundle Complete</string>
+    <string name="complete">Complete</string>
+    <string name="scan_loading_bay">Scan Loading Bay</string>
+    <string name="scan">Scan</string>
 </resources>

@@ -3,10 +3,13 @@ package com.spacepal.internal.app.util
 import android.app.ActivityManager
 import android.content.Context
 import android.net.ConnectivityManager
+import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.util.Base64
-import android.util.Log
 import android.util.Patterns
+import android.view.View
+import com.spacepal.internal.app.Constant
+import com.spacepal.internal.app.R
 import com.spacepal.internal.app.model.response.APIError
 import com.spacepal.internal.app.model.response.TokenResponse
 import com.spacepal.internal.app.source.RetrofitHelper
@@ -187,7 +190,6 @@ object Util {
 
     fun parseError(response: Response<*>): APIError {
 
-
         val converter: Converter<ResponseBody, APIError> = RetrofitHelper.instance!!.retrofit.responseBodyConverter(APIError::class.java, arrayOfNulls<Annotation>(0))
         val error: APIError
 
@@ -254,6 +256,26 @@ object Util {
         }
         return false
     }
+    fun getPriority(priority: Int?): String {
+        return when (priority) {
+            Constant.PRIORITY_H -> "H"
+            Constant.PRIORITY_M -> "M"
+            else -> "L"
+        }
+    }
 
+    fun setPriorityDrawable(priority: Int?,view: View) {
+        when (priority) {
+            Constant.PRIORITY_H -> view.background = ContextCompat.getDrawable(view.context,R.drawable.status_ring_high)
+            Constant.PRIORITY_M -> view.background=(ContextCompat.getDrawable(view.context,R.drawable.status_ring_medium))
+            else -> view.background = ContextCompat.getDrawable(view.context,R.drawable.status_ring_low)
+        }
+    }
+
+    fun getReference(appointmentId: String?): String {
+       var reference = appointmentId?.split("-");
+        return reference!![0]
+    }
 
 }
+

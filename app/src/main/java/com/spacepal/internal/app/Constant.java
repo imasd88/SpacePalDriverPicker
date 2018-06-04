@@ -12,4 +12,8 @@ public interface Constant {
 
     String ROLE_PICKER="PICKER";
     String ROLE_DRIVER="DRIVER";
+
+    int PRIORITY_H=1;
+    int PRIORITY_M=0;
+    int PRIORITY_L=-1;
 }

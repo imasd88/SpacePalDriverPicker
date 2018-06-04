@@ -5,8 +5,8 @@ import android.app.Application
 class RealmController(application: Application) {
 //    val realm: Realm
 //
-//    val orders: List<Order>
-//        get() = realm.copyFromRealm<E>(realm.where(Order::class.java).findAll())
+//    val orders: List<AssignmentItem>
+//        get() = realm.copyFromRealm<E>(realm.where(AssignmentItem::class.java).findAll())
 //
 //    val roles: List<Role>
 //        get() = realm.copyFromRealm<E>(realm.where(Role::class.java!!).findAll())
@@ -31,10 +31,10 @@ class RealmController(application: Application) {
 //
 //    }
 //
-//    fun saveOrders(orderList: List<Order>) {
+//    fun saveOrders(assignmentItemList: List<AssignmentItem>) {
 //        realm.executeTransaction { realm ->
-//            realm.where(Order::class.java!!).findAll().deleteAllFromRealm()
-//            realm.copyToRealm(orderList)
+//            realm.where(AssignmentItem::class.java!!).findAll().deleteAllFromRealm()
+//            realm.copyToRealm(assignmentItemList)
 //        }
 //
 //    }

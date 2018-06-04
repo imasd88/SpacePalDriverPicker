@@ -9,12 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.roadhourse.spacepal.ui.login.LoginActivity
 import org.jetbrains.anko.alert
-import java.util.*
 
 abstract class BaseFragment : Fragment(), Constant {
     var mBaseActivity: BaseActivity? = null
     private var view: View? = null
-    var timer: Timer? = null
 
     internal abstract val id: Int
 

@@ -1,6 +1,6 @@
 package com.spacepal.internal.app.ui.dashboard
 
-import com.spacepal.internal.app.model.response.Order
+import com.spacepal.internal.app.model.response.AssignmentResponse
 import com.spacepal.internal.app.source.RetrofitHelper
 import com.spacepal.internal.app.util.PreferenceUtil
 import com.spacepal.internal.app.util.Util
@@ -12,19 +12,18 @@ class OrderListPresenter(private val view: OrderListContract.View, private val p
 
     init {
         this.view.setPresenter(this)
-
     }
 
     override fun start() {
     }
 
-    override fun getOrders(role: String) {
+    override fun getOrders(userId: String,role: String) {
         view.showProgressDialog(false)
-        val call = RetrofitHelper.instance!!.api!!.getOrders(role)
-        call.enqueue(object : Callback<List<Order>> {
-            override fun onResponse(call: Call<List<Order>>, response: Response<List<Order>>) {
+        val call = RetrofitHelper.instance!!.api!!.getOrders(userId,role)
+        call.enqueue(object : Callback<AssignmentResponse> {
+            override fun onResponse(call: Call<AssignmentResponse>, response: Response<AssignmentResponse>) {
                 if (response.code() == 200) {
-                    view.showOrders(response.body()!!)
+                    view.showOrders(response.body()?.items!!)
                 } else {
                     val error = Util.parseError(response)
                     view.showMessage(error.getError()!!, true)
@@ -33,7 +32,7 @@ class OrderListPresenter(private val view: OrderListContract.View, private val p
                 view.showProgressDialog(false)
             }
 
-            override fun onFailure(call: Call<List<Order>>, t: Throwable) {
+            override fun onFailure(call: Call<AssignmentResponse>, t: Throwable) {
                 view.showProgressDialog(false)
                 view.showMessage("Fail...", true)
                 t.printStackTrace()

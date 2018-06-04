@@ -10,7 +10,8 @@
     <color name="blue">#0A7AFF</color>
     <color name="red">#ff2600</color>
     <color name="grey">#686868</color>
-
+    <color name="black">#000000</color>
+    <color name="green">#12c900</color>
     <color name="progress_dialog_bckgr_color">#80000000</color>
 
 </resources>

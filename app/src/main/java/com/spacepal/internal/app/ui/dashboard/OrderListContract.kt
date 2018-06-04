@@ -2,19 +2,19 @@ package com.spacepal.internal.app.ui.dashboard
 
 import com.spacepal.internal.app.BasePresenter
 import com.spacepal.internal.app.BaseView
-import com.spacepal.internal.app.model.response.Order
+import com.spacepal.internal.app.model.response.AssignmentItem
 
 
 class OrderListContract {
-    public interface View : BaseView<Presenter> {
-        fun showOrders(mListOrder: List<Order>)
+     interface View : BaseView<Presenter> {
+        fun showOrders(mListAssignmentItem: List<AssignmentItem>)
         fun showMessage(text: String, alert: Boolean)
         fun showProgressDialog(isInProgress: Boolean)
         fun showOnErrorOnEmpty()
     }
 
 
-    public interface Presenter : BasePresenter {
-        fun getOrders(role: String)
+     interface Presenter : BasePresenter {
+        fun getOrders(userId:String, role: String)
     }
 }

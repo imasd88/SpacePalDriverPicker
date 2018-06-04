@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.spacepal.internal.app.ui.dashboard.DashboardActivity">
+    tools:context="com.spacepal.internal.app.java.JobActivity">
 
     <android.support.v7.widget.Toolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,8 +20,7 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <include layout="@layout/fragment_dashboard" />
-    </FrameLayout>
+        android:layout_height="match_parent" />
+
 
 </LinearLayout>
