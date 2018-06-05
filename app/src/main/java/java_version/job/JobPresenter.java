@@ -1,10 +1,15 @@
 package java_version.job;
 
+import android.util.Log;
+
 import com.spacepal.internal.app.Constant;
 import com.spacepal.internal.app.model.response.APIError;
 import com.spacepal.internal.app.model.response.JobsResponse;
 import com.spacepal.internal.app.source.RetrofitHelper;
 
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java_version.util.Util;
 import retrofit2.Call;
@@ -69,10 +74,9 @@ public class JobPresenter implements JobContract.Presenter,Constant {
                 if (response.code() == 200) {
                     view.onScanResultPushed();
                 } else {
-                    APIError error = Util.parseError(response);
-                    view.showMessage(error.getError());
+                    view.showMessage( String.valueOf(response.raw()));
+                    Log.e("error", String.valueOf(response.raw()));
                 }
-
             }
 
             @Override
