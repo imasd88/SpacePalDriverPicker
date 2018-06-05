@@ -49,5 +49,8 @@ interface API {
     @GET("/v1/Job")
     fun getJobs(@Query("assignmentId") assignmentId: String): Call<JobsResponse>
 
+    @POST("/v1/Assignment/{id}/ScanToOrder")
+    fun scanToOrder(@Path("id") assignmentId: String, @Query("InventoryId") inventoryId: String): Call<Void>
+
 }
 

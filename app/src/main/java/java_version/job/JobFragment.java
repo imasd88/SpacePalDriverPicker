@@ -99,6 +99,11 @@ public class JobFragment extends BaseFragment implements JobContract.View{
         jobsListAdapter.updateItems(jobs);
     }
 
+    @Override
+    public void onScanResultPushed() {
+        presenter.getJobs(assignmentItem.getId());
+    }
+
 
     @Override
     public void showMessage(String message) {

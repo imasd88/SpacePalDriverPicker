@@ -56,4 +56,32 @@ public class JobPresenter implements JobContract.Presenter,Constant {
             }
         });
     }
+
+    @Override
+    public void scanToOrder(String assignmentId,String inventoryId) {
+        view.showProgressDialog(true);
+        Call<Void>  call = RetrofitHelper.Companion.getInstance().getApi().scanToOrder(assignmentId,inventoryId);
+        call.enqueue(new Callback<Void>() {
+
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                view.showProgressDialog(false);
+                if (response.code() == 200) {
+                    view.onScanResultPushed();
+                } else {
+                    APIError error = Util.parseError(response);
+                    view.showMessage(error.getError());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                view.showProgressDialog(false);
+                view.showMessage( "FAIL...");
+                t.printStackTrace();
+            }
+        });
+
+    }
 }

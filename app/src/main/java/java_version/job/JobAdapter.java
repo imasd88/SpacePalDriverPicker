@@ -47,7 +47,7 @@ public class JobAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.tvTitle.setText(job.getProductTitle());
             viewHolder.tvRef.setText("Ref: "+ Util.getReference(job.getAssignmentId()));
-            viewHolder.cbJob.setChecked(job.getInventoryId()!=null?true:false);
+            viewHolder.cbJob.setChecked(job.getCompletedDateTimeUtc()!=null?true:false);
 
     }
 

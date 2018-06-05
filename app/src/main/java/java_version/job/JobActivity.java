@@ -25,6 +25,7 @@ import java_version.util.PermissionUtil;
 
 public class JobActivity extends BaseActivity implements PermissionUtil.PermissionCallback{
 
+    private static final int REQ_CODE_QR = 0x125 ;
     Toolbar toolbar;
     private JobFragment jobFragment;
     private AssignmentItem mAssignment;
@@ -90,11 +91,24 @@ public class JobActivity extends BaseActivity implements PermissionUtil.Permissi
 
     @Override
     public void onPermissionGranted() {
-        startActivity(new Intent(this, QrScannerActivity.class));
+        startActivityForResult(new Intent(this, QrScannerActivity.class),REQ_CODE_QR);
     }
 
     @Override
     public void onPermissionDenied() {
     showSettingsDialog();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            switch (requestCode){
+                case REQ_CODE_QR:
+                    String response = data.getStringExtra("QR_RESPONSE");
+                    jobsPresenter.scanToOrder(mAssignment.getId(),response);
+                    break;
+            }
+        }
     }
 }

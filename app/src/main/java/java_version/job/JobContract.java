@@ -15,6 +15,7 @@ public class JobContract {
 
     {
         void showJobs(List<JobItem> jobItemList);
+        void onScanResultPushed();
         void showMessage(String message);
         void showProgressDialog( Boolean isInProgress);
         void showOnErrorOnEmpty();
@@ -25,5 +26,6 @@ public class JobContract {
 
     {
         void getJobs(String assignmentId);
+        void scanToOrder(String assignmentId,String inventoryId);
     }
 }

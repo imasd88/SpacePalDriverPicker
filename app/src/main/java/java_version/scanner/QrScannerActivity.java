@@ -1,8 +1,8 @@
 package java_version.scanner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.budiyev.android.codescanner.AutoFocusMode;
 import com.budiyev.android.codescanner.CodeScanner;
@@ -40,7 +40,10 @@ public class QrScannerActivity extends BaseActivity implements DecodeCallback {
     @Override
     public void onDecoded(@NonNull Result result) {
         runOnUiThread(() -> {
-            Toast.makeText(this, result.getText(), Toast.LENGTH_SHORT).show();
+            Intent intent = getIntent();
+            intent.putExtra("QR_RESPONSE",result.getText());
+            setResult(RESULT_OK,intent);
+            finish();
         });
     }
 
