@@ -12,10 +12,11 @@ import android.view.MenuItem;
 import com.spacepal.internal.app.BaseActivity;
 import com.spacepal.internal.app.R;
 import com.spacepal.internal.app.model.response.AssignmentItem;
-import com.spacepal.internal.app.ui.profile.ProfileActivity;
 
 import org.jetbrains.annotations.Nullable;
 
+import java_version.job.scan_bundle_to_bay.ScanBundleToBayFragment;
+import java_version.job.scan_bundle_to_bay.ScanBundleToBayPresenter;
 import java_version.scanner.QrScannerActivity;
 import java_version.util.PermissionUtil;
 
@@ -23,13 +24,17 @@ import java_version.util.PermissionUtil;
  * Created by sidhu on 6/3/2018.
  */
 
-public class JobActivity extends BaseActivity implements PermissionUtil.PermissionCallback{
+public class JobActivity extends BaseActivity implements PermissionUtil.PermissionCallback,JobFragment.ScanBundleToBay{
 
     private static final int REQ_CODE_QR = 0x125 ;
     Toolbar toolbar;
     private JobFragment jobFragment;
     private AssignmentItem mAssignment;
     private JobPresenter jobsPresenter;
+
+    private ScanBundleToBayFragment scanBundleToBayFragment;
+    private ScanBundleToBayPresenter scanBundleToBayPresenter;
+    private boolean scanToBayFragLoaded=false;
 
     @Override
     public int getId() {
@@ -51,6 +56,7 @@ public class JobActivity extends BaseActivity implements PermissionUtil.Permissi
         return true;
     }
     private void loadJobFragment() {
+        scanToBayFragLoaded=false;
         jobFragment = jobFragment!=null?jobFragment: JobFragment.newInstance(mAssignment);
         jobsPresenter =jobsPresenter!=null?jobsPresenter:
                 new JobPresenter(jobFragment);
@@ -58,6 +64,17 @@ public class JobActivity extends BaseActivity implements PermissionUtil.Permissi
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout, jobFragment);
+        fragmentTransaction.commit();
+    }
+
+    private void loadScanBundleToBayFragment(){
+        scanBundleToBayFragment = scanBundleToBayFragment!=null?scanBundleToBayFragment: ScanBundleToBayFragment.newInstance(mAssignment);
+        scanBundleToBayPresenter =scanBundleToBayPresenter!=null?scanBundleToBayPresenter:
+                new ScanBundleToBayPresenter(scanBundleToBayFragment);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, scanBundleToBayFragment);
         fragmentTransaction.commit();
     }
     @Override
@@ -83,7 +100,7 @@ public class JobActivity extends BaseActivity implements PermissionUtil.Permissi
 
     private void checkPermission(){
         if(PermissionUtil.isCameraPermissionGranted(this)){
-            startActivity(new Intent(this, ProfileActivity.class));
+            startActivityForResult(new Intent(this, QrScannerActivity.class),REQ_CODE_QR);
         }else{
             PermissionUtil.requestCameraPermission(this,this);
         }
@@ -96,7 +113,7 @@ public class JobActivity extends BaseActivity implements PermissionUtil.Permissi
 
     @Override
     public void onPermissionDenied() {
-    showSettingsDialog();
+        showSettingsDialog();
     }
 
     @Override
@@ -106,9 +123,19 @@ public class JobActivity extends BaseActivity implements PermissionUtil.Permissi
             switch (requestCode){
                 case REQ_CODE_QR:
                     String response = data.getStringExtra("QR_RESPONSE");
-                    jobsPresenter.scanToOrder(mAssignment.getId(),response);
+                    if(!scanToBayFragLoaded)
+                        jobsPresenter.scanToOrder(mAssignment.getId(),response);
+                    else
+                        scanBundleToBayPresenter.scanToBay(mAssignment.getNextAssignmentId(),mAssignment.getBayId());
                     break;
             }
         }
+    }
+
+    @Override
+    public void onLoadingBayClick(AssignmentItem mAssignment) {
+        this.mAssignment=mAssignment;
+        scanToBayFragLoaded=true;
+        loadScanBundleToBayFragment();
     }
 }

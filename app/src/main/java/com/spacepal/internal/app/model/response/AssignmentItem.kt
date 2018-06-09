@@ -14,8 +14,14 @@ import java.io.Serializable
 	  @field:SerializedName("bayTitle")
 	  val bayTitle: String? = null
 
+	  @field:SerializedName("id")
+	  val id: String? = null
+
 	  @field:SerializedName("prevAssignmentId")
 	  val prevAssignmentId: String? = null
+
+	  @field:SerializedName("nextAssignmentId")
+	  val nextAssignmentId: String? = null
 
 	  @field:SerializedName("bayId")
 	  val bayId: String? = null
@@ -26,8 +32,35 @@ import java.io.Serializable
 	  @field:SerializedName("createdDateTimeUtc")
 	  val createdDateTimeUtc: String? = null
 
+	  @field:SerializedName("acceptedDeliverDateTimeUtc")
+	  val acceptedDeliverDateTimeUtc: String? = null
+
+	  @field:SerializedName("preferredDeliverDateTimeUtc")
+	  val preferredDeliverDateTimeUtc: String? = null
+
+	  @field:SerializedName("preferredCheckinDateTimeUtc")
+	  val preferredCheckinDateTimeUtc: String? = null
+
+	  @field:SerializedName("acceptedCheckinDateTimeUtc")
+	  val acceptedCheckinDateTimeUtc: String? = null
+
+	  @field:SerializedName("preferredCheckoutDateTimeUtc")
+	  val preferredCheckoutDateTimeUtc: String? = null
+
+	  @field:SerializedName("acceptedCheckoutDateTimeUtc")
+	  val acceptedCheckoutDateTimeUtc: String? = null
+
 	  @field:SerializedName("priority")
 	  val priority: Int? = null
+
+	  @field:SerializedName("pickerId")
+	  val pickerId: String? = null
+
+	  @field:SerializedName("driverId")
+	  val driverId: String? = null
+
+	  @field:SerializedName("customerId")
+	  val customerId: String? = null
 
 	  @field:SerializedName("userId")
 	  val userId: String? = null
@@ -44,11 +77,19 @@ import java.io.Serializable
 	  @field:SerializedName("isAccepted")
 	  val isAccepted: Boolean? = null
 
-	  @field:SerializedName("id")
-	  val id: String? = null
-
 	  @field:SerializedName("dueDateTimeUtc")
 	  val dueDateTimeUtc: String? = null
+
+	  @field:SerializedName("startedDateTimeUtc")
+	  val startedDateTimeUtc: String? = null
+
+	  @field:SerializedName("completedDateTimeUtc")
+	  val completedDateTimeUtc: String? = null
+
+	  @field:SerializedName("instructions")
+	  val instructions: String? = null
+
+
 
 	  @field:SerializedName("isComplete")
 	  val isComplete: Boolean? = null

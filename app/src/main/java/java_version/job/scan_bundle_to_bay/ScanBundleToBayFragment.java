@@ -1,7 +1,5 @@
-package java_version.job;
+package java_version.job.scan_bundle_to_bay;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,65 +24,57 @@ import java_version.util.Util;
  * Created by sidhu on 6/3/2018.
  */
 
-public class JobFragment extends BaseFragment implements JobContract.View{
+public class ScanBundleToBayFragment extends BaseFragment implements ScanBundleToBayContract.View{
 
 
     private static String ARG_ASSIGNMENT="assignment";
     AssignmentItem assignmentItem;
-    RecyclerView jobsRecyclerView;
-    private JobAdapter jobsListAdapter;
-    private List<JobItem> jobs;
-    Button btnBundleComplete,btnPrintSticker,btnLoadingBay;
-    TextView tvRequestCode,tvCompletionDue,tvDeliveryDate,tvLoadingBay;
-    JobContract.Presenter presenter;
-    Activity activity;
+    RecyclerView assignmentBundleRecyclerView;
+    private ScanBundleToBayAdapter assignmentBundleListAdapter;
+    private List<JobItem> assignmentBundle;
+    Button btnComplete;
+    TextView tvRequestCode,tvCompletionDue,tvDeliveryDate,tvLoadingBay,tvLoadingBayConfirm;
+    ScanBundleToBayContract.Presenter presenter;
 
-    public static JobFragment newInstance(AssignmentItem item) {
+    public static ScanBundleToBayFragment newInstance(AssignmentItem item) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_ASSIGNMENT,item);
-        JobFragment fragment = new JobFragment();
+        ScanBundleToBayFragment fragment = new ScanBundleToBayFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public int getID() {
-        return R.layout.fragment_assignment_jobs;
+        return R.layout.fragment_place_in_bay;
     }
 
     @Override
     public void initUI(@NotNull View view) {
-        jobsRecyclerView=  view.findViewById(R.id.rvJobItems);
-        btnBundleComplete = view.findViewById(R.id.btnBundleComplete);
-        btnPrintSticker = view.findViewById(R.id.btnPrintSticker);
-        btnLoadingBay = view.findViewById(R.id.btnLoadingBay);
+        assignmentBundleRecyclerView=  view.findViewById(R.id.rvJobItems);
+        btnComplete = view.findViewById(R.id.btnComplete);
 
         tvRequestCode = view.findViewById(R.id.tvRequestCode);
         tvCompletionDue = view.findViewById(R.id.tvCompletionDue);
         tvDeliveryDate =view.findViewById(R.id.tvDeliveryDate);
         tvLoadingBay = view.findViewById(R.id.tvLoadingBay);
+        tvLoadingBayConfirm = view.findViewById(R.id.tvLoadingBayConfirm);
         setRecyclerView();
         assignmentItem = (AssignmentItem) getArguments().getSerializable(ARG_ASSIGNMENT);
-        presenter.getAssignment(assignmentItem.getId());
-
-        if (jobs == null) {
-            jobs = new ArrayList<>();
+        bindData(assignmentItem);
+        if (assignmentBundle == null) {
+            assignmentBundle = new ArrayList<>();
         }
 
-        jobsListAdapter = new JobAdapter(jobs, getActivity());
-        jobsRecyclerView.setAdapter(jobsListAdapter);
-
+        assignmentBundleListAdapter = new ScanBundleToBayAdapter(assignmentBundle, getActivity());
+        assignmentBundleRecyclerView.setAdapter(assignmentBundleListAdapter);
+        presenter.getJobs(assignmentItem.getId());
+        updateBtnStatus();
     }
-    @Override
-    public void onAttach(Context context)
-    {
-        super.onAttach(context);
-        this.activity = (JobActivity)context;
 
-    }
     private void setRecyclerView(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        jobsRecyclerView.setLayoutManager(layoutManager);
+        assignmentBundleRecyclerView.setLayoutManager(layoutManager);
     }
 
     private void bindData(AssignmentItem item){
@@ -98,41 +88,25 @@ public class JobFragment extends BaseFragment implements JobContract.View{
     }
 
     private void updateBtnStatus(){
-        if(allItemsScanned(jobs)){
-            btnBundleComplete.setEnabled(true);
-            btnPrintSticker.setEnabled(true);
+        if(allBundleLoaded(assignmentBundle)){
+            btnComplete.setEnabled(true);
+            tvLoadingBayConfirm.setVisibility(View.VISIBLE);
+            tvLoadingBayConfirm.setText("Loading Bay "+assignmentItem.getBayTitle()!=null?assignmentItem.getBayTitle():""+" confirmed");
         }else{
-            btnBundleComplete.setEnabled(false);
-            btnPrintSticker.setEnabled(false);
+            btnComplete.setEnabled(false);
         }
     }
 
-    // This is being called from xml
-    public void printSticker(View view){
-        presenter.printSticker(assignmentItem.getAppointmentId());
-    }
-
-    public void onLoadingBayClick(View view){
-        ((ScanBundleToBay)activity).onLoadingBayClick(assignmentItem);
-    }
 
     @Override
-    public void setPresenter(JobContract.Presenter presenter) {
+    public void setPresenter(ScanBundleToBayContract.Presenter presenter) {
         this.presenter=presenter;
     }
 
     @Override
-    public void showJobs(List<JobItem> jobItemList) {
-        jobs = jobItemList;
-        jobsListAdapter.updateItems(jobs);
-        updateBtnStatus();
-    }
-
-    @Override
-    public void showAssignment(AssignmentItem item) {
-        assignmentItem=item;
-        bindData(assignmentItem);
-        presenter.getJobs(assignmentItem.getId());
+    public void showAssignmentBundle(List<JobItem> jobItemList) {
+        assignmentBundle = jobItemList;
+        assignmentBundleListAdapter.updateItems(assignmentBundle);
         updateBtnStatus();
     }
 
@@ -141,10 +115,6 @@ public class JobFragment extends BaseFragment implements JobContract.View{
         presenter.getJobs(assignmentItem.getId());
     }
 
-    @Override
-    public void onPrintedSticker() {
-        btnLoadingBay.setEnabled(true);
-    }
 
 
     @Override
@@ -162,17 +132,13 @@ public class JobFragment extends BaseFragment implements JobContract.View{
 
     }
 
-    private boolean allItemsScanned(List<JobItem> jobs){
-        if(jobs.isEmpty())
+    private boolean allBundleLoaded(List<JobItem> assignmentBundle){
+        if(assignmentBundle.isEmpty())
             return false;
-        for (JobItem item:jobs){
+        for (JobItem item:assignmentBundle){
             if(item.getCompletedDateTimeUtc()==null)
                 return false;
         }
         return true;
-    }
-
-    public interface ScanBundleToBay{
-         void onLoadingBayClick(AssignmentItem item);
     }
 }

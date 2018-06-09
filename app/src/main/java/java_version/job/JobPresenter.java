@@ -2,6 +2,7 @@ package java_version.job;
 
 import com.spacepal.internal.app.Constant;
 import com.spacepal.internal.app.model.response.APIError;
+import com.spacepal.internal.app.model.response.AssignmentItem;
 import com.spacepal.internal.app.model.response.JobsResponse;
 import com.spacepal.internal.app.source.RetrofitHelper;
 
@@ -18,7 +19,7 @@ import retrofit2.Response;
 public class JobPresenter implements JobContract.Presenter,Constant {
 
     private JobContract.View view;
-    private static final String TAG = "JobPresenter";
+    private static final String TAG = "ScanBundleToBayPresenter";
 
     public JobPresenter(JobContract.View view) {
         this.view = view;
@@ -29,6 +30,32 @@ public class JobPresenter implements JobContract.Presenter,Constant {
     @Override
     public void start() {
 
+    }
+
+    @Override
+    public void getAssignment(String assignmentId) {
+        view.showProgressDialog(true);
+
+        Call<AssignmentItem>  call = RetrofitHelper.Companion.getInstance().getApi().getAssignment(assignmentId);
+        call.enqueue(new Callback<AssignmentItem>() {
+            @Override
+            public void onResponse(Call<AssignmentItem> call, Response<AssignmentItem> response) {
+                if (response.code() == 200) {
+                    view.showAssignment(response.body());
+                } else {
+                    APIError error = Util.parseError(response);
+                    view.showMessage(error.getError());
+                    view.showOnErrorOnEmpty();
+                }
+                view.showProgressDialog(false);
+            }
+
+            @Override
+            public void onFailure(Call<AssignmentItem> call, Throwable t) {
+                view.showMessage( "FAIL...");
+                t.printStackTrace();
+            }
+        });
     }
 
     @Override
@@ -83,5 +110,32 @@ public class JobPresenter implements JobContract.Presenter,Constant {
             }
         });
 
+    }
+
+    @Override
+    public void printSticker(String appointmentId) {
+        view.showProgressDialog(true);
+        Call<Void>  call = RetrofitHelper.Companion.getInstance().getApi().printSticker(appointmentId);
+        call.enqueue(new Callback<Void>() {
+
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                view.showProgressDialog(false);
+                if (response.code() == 200) {
+                    view.onPrintedSticker();
+                } else {
+                    APIError error = Util.parseError(response);
+                    view.showMessage(error.getError());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                view.showProgressDialog(false);
+                view.showMessage( "FAIL...");
+                t.printStackTrace();
+            }
+        });
     }
 }

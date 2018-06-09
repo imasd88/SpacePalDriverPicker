@@ -4,6 +4,7 @@ import com.spacepal.internal.app.model.ChangePassword
 import com.spacepal.internal.app.model.EmailBody
 import com.spacepal.internal.app.model.Profile
 import com.spacepal.internal.app.model.Role
+import com.spacepal.internal.app.model.response.AssignmentItem
 import com.spacepal.internal.app.model.response.AssignmentResponse
 import com.spacepal.internal.app.model.response.JobsResponse
 import com.spacepal.internal.app.model.response.TokenResponse
@@ -46,11 +47,20 @@ interface API {
     @GET("/v1/Assignment")
     fun getOrders(@Query("userId") userId: String,@Query("role") role: String): Call<AssignmentResponse>
 
+    @GET("/v1/Assignment/{id}")
+    fun getAssignment(@Path("id") assignmentId: String): Call<AssignmentItem>
+
     @GET("/v1/Job")
     fun getJobs(@Query("assignmentId") assignmentId: String): Call<JobsResponse>
 
     @POST("/v1/Assignment/{id}/ScanToOrder")
     fun scanToOrder(@Path("id") assignmentId: String, @Query("InventoryId") inventoryId: String): Call<Void>
+
+    @POST("/v1/Appointment/{id}/PrintBundle")
+    fun printSticker(@Path("id") appointmentId:String): Call<Void>
+
+    @POST("/v1/Assignment/{id}/ScanBundleToBay")
+    fun scanToBay(@Path("id") assignmentId: String,@Query("bayId") bayId: String): Call<Void>
 
 }
 
