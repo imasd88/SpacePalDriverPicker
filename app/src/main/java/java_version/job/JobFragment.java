@@ -138,6 +138,7 @@ public class JobFragment extends BaseFragment implements JobContract.View{
 
     @Override
     public void onScanResultPushed() {
+
         presenter.getJobs(assignmentItem.getId());
     }
 

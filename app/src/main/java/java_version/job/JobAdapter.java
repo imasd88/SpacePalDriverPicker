@@ -34,27 +34,30 @@ public class JobAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-            View view = LayoutInflater.from(context).inflate(R.layout.item_view_job, parent, false);
-            return new ViewHolder(view);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_view_job, parent, false);
+        return new ViewHolder(view);
 
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
 
-            JobItem job =  jobsList.get(position);
+        JobItem job = jobsList.get(position);
 
-            ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.tvTitle.setText(job.getProductTitle());
-            viewHolder.tvRef.setText("Ref: "+ Util.getReference(job.getAssignmentId()));
-            viewHolder.cbJob.setChecked(job.getCompletedDateTimeUtc()!=null?true:false);
+        ViewHolder viewHolder = (ViewHolder) holder;
+        viewHolder.tvTitle.setText(job.getProductTitle());
+        viewHolder.tvRef.setText("Ref: " + Util.getReference(job.getAssignmentId()));
+        viewHolder.cbJob.setChecked(job.getCompletedDateTimeUtc() != null ? true : false);
+
+        viewHolder.cbJob.setEnabled(false);
+        viewHolder.cbJob.setClickable(false);
 
     }
 
 
     @Override
     public int getItemCount() {
-        return  jobsList.size();
+        return jobsList.size();
 
     }
 
@@ -78,15 +81,16 @@ public class JobAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle;
-         TextView tvRef;
+        TextView tvRef;
         CheckBox cbJob;
 
         View view;
+
         public ViewHolder(View itemView) {
             super(itemView);
             this.view = itemView;
             this.tvTitle = itemView.findViewById(R.id.tvJobTitle);
-            tvRef =  itemView.findViewById(R.id.tvJobReference);
+            tvRef = itemView.findViewById(R.id.tvJobReference);
             cbJob = itemView.findViewById(R.id.cbJob);
         }
     }
