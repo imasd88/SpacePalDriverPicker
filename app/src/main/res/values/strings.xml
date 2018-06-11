@@ -19,4 +19,9 @@
     <string name="complete">Complete</string>
     <string name="scan_loading_bay">Scan Loading Bay</string>
     <string name="scan">Scan</string>
+
+    <string name="load_items_for_packing">Load items for packing</string>
+    <string name="load_complete">Load Completed</string>
+    <string name="pick_complete">Pick Complete</string>
+
 </resources>

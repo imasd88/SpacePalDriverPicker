@@ -19,12 +19,25 @@
         />
     <include
         android:id="@+id/layoutDetailsTop"
-        layout="@layout/layout_assignment_details" />
+        layout="@layout/layout_assignment_details"
+        />
+    <TextView
+        android:id="@+id/tvPacking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutDetailsTop"
+        android:layout_marginTop="10dp"
+        android:text="@string/load_items_for_packing"
+        android:visibility="gone"
+        android:textSize="15pt"
+        />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvJobItems"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/layoutDetailsTop"
+        app:layout_constraintTop_toBottomOf="@+id/tvPacking"
         app:layout_constraintBottom_toTopOf="@+id/btnBundleComplete"
         app:layout_constraintStart_toStartOf="@id/guidelineLeft"
         app:layout_constraintEnd_toStartOf="@id/guidelineRight"
@@ -38,6 +51,7 @@
         android:textAllCaps="false"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
+        android:onClick="onLoadCompleted"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/btnPrintSticker"

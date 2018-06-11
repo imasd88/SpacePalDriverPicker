@@ -1,4 +1,4 @@
-package java_version.job;
+package java_version.bay_to_shelf.bay_to_trolly;
 
 import android.util.Log;
 
@@ -17,12 +17,12 @@ import retrofit2.Response;
  * Created by sidhu on 6/3/2018.
  */
 
-public class JobPresenter implements JobContract.Presenter,Constant {
+public class BayToTrollyPresenter implements BayToTrollyContract.Presenter,Constant {
 
-    private JobContract.View view;
-    private static final String TAG = "ScanTrollyToShelfPresenter";
+    private BayToTrollyContract.View view;
+    private static final String TAG = "BayToTrollyPresenter";
 
-    public JobPresenter(JobContract.View view) {
+    public BayToTrollyPresenter(BayToTrollyContract.View view) {
         this.view = view;
         this.view.setPresenter(this);
     }
@@ -86,9 +86,9 @@ public class JobPresenter implements JobContract.Presenter,Constant {
     }
 
     @Override
-    public void scanToOrder(String assignmentId,String inventoryId) {
+    public void scanToTrolly(String assignmentId,String inventoryId) {
         view.showProgressDialog(true);
-        Call<Void>  call = RetrofitHelper.Companion.getInstance().getApi().scanToOrder(assignmentId,inventoryId);
+        Call<Void>  call = RetrofitHelper.Companion.getInstance().getApi().scanToTrolly(assignmentId,inventoryId);
         call.enqueue(new Callback<Void>() {
 
             @Override
@@ -112,30 +112,5 @@ public class JobPresenter implements JobContract.Presenter,Constant {
 
     }
 
-    @Override
-    public void printSticker(String appointmentId) {
-        view.showProgressDialog(true);
-        Call<Void>  call = RetrofitHelper.Companion.getInstance().getApi().printSticker(appointmentId);
-        call.enqueue(new Callback<Void>() {
 
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                view.showProgressDialog(false);
-                if (response.code() == 200) {
-                    view.onPrintedSticker();
-                } else {
-                    APIError error = Util.parseError(response);
-                    view.showMessage(error.getError());
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                view.showProgressDialog(false);
-                view.showMessage( "FAIL...");
-                t.printStackTrace();
-            }
-        });
-    }
 }

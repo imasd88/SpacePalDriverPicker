@@ -1,4 +1,4 @@
-package java_version.job.scan_bundle_to_bay;
+package java_version.bay_to_shelf.trolly_to_shelf;
 
 import com.spacepal.internal.app.Constant;
 import com.spacepal.internal.app.model.response.APIError;
@@ -14,12 +14,12 @@ import retrofit2.Response;
  * Created by sidhu on 6/3/2018.
  */
 
-public class ScanBundleToBayPresenter implements ScanBundleToBayContract.Presenter,Constant {
+public class ScanTrollyToShelfPresenter implements ScanTrollyToShelfContract.Presenter,Constant {
 
-    private ScanBundleToBayContract.View view;
+    private ScanTrollyToShelfContract.View view;
     private static final String TAG = "ScanTrollyToShelfPresenter";
 
-    public ScanBundleToBayPresenter(ScanBundleToBayContract.View view) {
+    public ScanTrollyToShelfPresenter(ScanTrollyToShelfContract.View view) {
         this.view = view;
         this.view.setPresenter(this);
     }
@@ -57,9 +57,9 @@ public class ScanBundleToBayPresenter implements ScanBundleToBayContract.Present
     }
 
     @Override
-    public void scanToBay(String assignmentId,String bayId) {
+    public void scanTrollyToShelf(String assignmentId,String inventoryId,String shelfId) {
         view.showProgressDialog(true);
-        Call<Void> call = RetrofitHelper.Companion.getInstance().getApi().scanToBay(assignmentId,bayId);
+        Call<Void> call = RetrofitHelper.Companion.getInstance().getApi().scanTrollyToShelf(assignmentId,inventoryId,shelfId);
         call.enqueue(new Callback<Void>() {
 
             @Override
