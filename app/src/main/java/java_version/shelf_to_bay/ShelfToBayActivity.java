@@ -125,7 +125,7 @@ public class ShelfToBayActivity extends BaseActivity implements PermissionUtil.P
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+      //  super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQ_CODE_QR:

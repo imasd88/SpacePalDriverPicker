@@ -57,7 +57,7 @@ public class ScanTrollyToBayPresenter implements ScanTrollyToBayContract.Present
     }
 
     @Override
-    public void scanTrollyToShelf(String assignmentId,String inventoryId,String shelfId) {
+    public void scanTrollyToBay(String assignmentId,String inventoryId,String shelfId) {
         view.showProgressDialog(true);
         Call<Void> call = RetrofitHelper.Companion.getInstance().getApi().scanTrollyToBay(assignmentId,inventoryId,shelfId);
         call.enqueue(new Callback<Void>() {

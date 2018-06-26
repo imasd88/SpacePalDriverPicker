@@ -26,6 +26,6 @@ public class ScanTrollyToBayContract {
 
     {
         void getJobs(String nextAssignmentId);
-        void scanTrollyToShelf(String assignmentId,String inventoryId, String shelfId);
+        void scanTrollyToBay(String assignmentId,String inventoryId, String shelfId);
     }
 }

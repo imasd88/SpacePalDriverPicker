@@ -19,7 +19,6 @@ import java_version.job.scan_bundle_to_bay.ScanBundleToBayFragment;
 import java_version.job.scan_bundle_to_bay.ScanBundleToBayPresenter;
 import java_version.scanner.QrScannerActivity;
 import java_version.util.PermissionUtil;
-import retrofit2.http.HEAD;
 
 /**
  * Created by sidhu on 6/3/2018.
@@ -125,7 +124,7 @@ public class JobActivity extends BaseActivity implements PermissionUtil.Permissi
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+     //   super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQ_CODE_QR:
