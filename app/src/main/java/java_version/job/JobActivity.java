@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.spacepal.internal.app.BaseActivity;
 import com.spacepal.internal.app.R;
@@ -23,7 +24,7 @@ import java_version.util.PermissionUtil;
 /**
  * Created by sidhu on 6/3/2018.
  */
-public class JobActivity extends BaseActivity implements PermissionUtil.PermissionCallback,JobFragment.ScanBundleToBay{
+public class JobActivity extends BaseActivity implements PermissionUtil.PermissionCallback{
 
 
     private static final int REQ_CODE_QR = 0x125;
@@ -138,9 +139,13 @@ public class JobActivity extends BaseActivity implements PermissionUtil.Permissi
         }
     }
 
-    @Override
-    public void onLoadingBayClick(AssignmentItem mAssignment) {
-        this.mAssignment=mAssignment;
+
+    // This is being called from xml
+    public void printSticker(View view){
+        jobsPresenter.printSticker(mAssignment.getId());
+    }
+
+    public void onLoadingBayClick(View view){
         scanToBayFragLoaded=true;
         loadScanBundleToBayFragment();
     }

@@ -45,8 +45,7 @@ public class JobPresenter implements JobContract.Presenter,Constant {
                     view.showAssignment(response.body());
                 } else {
                     APIError error = Util.parseError(response);
-                    view.showMessage(error.getError());
-                    view.showOnErrorOnEmpty();
+                    view.showMessage(response.code()+" - "+error.getErrorMsg());
                 }
                 view.showProgressDialog(false);
             }
@@ -54,6 +53,7 @@ public class JobPresenter implements JobContract.Presenter,Constant {
             @Override
             public void onFailure(Call<AssignmentItem> call, Throwable t) {
                 view.showMessage( "FAIL...");
+                view.showProgressDialog(false);
                 t.printStackTrace();
             }
         });
@@ -71,8 +71,7 @@ public class JobPresenter implements JobContract.Presenter,Constant {
                     view.showJobs(response.body().getJob());
                 } else {
                     APIError error = Util.parseError(response);
-                    view.showMessage(error.getError());
-                    view.showOnErrorOnEmpty();
+                    view.showMessage(response.code()+" - "+error.getErrorMsg());
                 }
                 view.showProgressDialog(false);
             }
@@ -80,6 +79,7 @@ public class JobPresenter implements JobContract.Presenter,Constant {
             @Override
             public void onFailure(Call<JobsResponse> call, Throwable t) {
                 view.showMessage( "FAIL...");
+                view.showProgressDialog(false);
                 t.printStackTrace();
             }
         });
@@ -97,7 +97,7 @@ public class JobPresenter implements JobContract.Presenter,Constant {
                 if (response.code() == 200) {
                     view.onScanResultPushed();
                 } else {
-                    view.showMessage( String.valueOf(response.raw()));
+                    view.showMessage(response.code()+" - "+String.valueOf(response.raw()));
                     Log.e("error", String.valueOf(response.raw()));
                 }
             }
@@ -125,7 +125,7 @@ public class JobPresenter implements JobContract.Presenter,Constant {
                     view.onPrintedSticker();
                 } else {
                     APIError error = Util.parseError(response);
-                    view.showMessage(error.getError());
+                    view.showMessage(response.code()+" - "+error.getErrorMsg());
                 }
 
             }

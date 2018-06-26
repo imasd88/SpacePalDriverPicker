@@ -49,6 +49,7 @@ public abstract class BaseFragment extends Fragment implements Constant {
     }
 
     public void showProgress() {
+
         mBaseActivity.showProgress();
     }
 

@@ -24,6 +24,14 @@ class APIError {
     @SerializedName("remaining_tries_allowed")
     private var remTryAllowed: Int = 0
 
+
+    @SerializedName("type")
+    private var errorType: String? = null
+
+    @SerializedName("message")
+    private var errorMsg: String? = null
+
+
     fun getHttpCode(): Int {
         return httpCode
     }
@@ -80,5 +88,9 @@ class APIError {
 
     fun setError(error: String) {
         this.error = error
+    }
+
+    fun getErrorMsg(): String? {
+        return errorMsg
     }
 }

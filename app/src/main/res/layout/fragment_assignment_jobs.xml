@@ -51,7 +51,6 @@
         android:textAllCaps="false"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:onClick="onLoadCompleted"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/btnPrintSticker"

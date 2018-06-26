@@ -41,18 +41,19 @@ public class ShelfToTrollyPresenter implements ShelfToTrollyContract.Presenter,C
         call.enqueue(new Callback<AssignmentItem>() {
             @Override
             public void onResponse(Call<AssignmentItem> call, Response<AssignmentItem> response) {
+                view.showProgressDialog(false);
                 if (response.code() == 200) {
                     view.showAssignment(response.body());
                 } else {
                     APIError error = Util.parseError(response);
-                    view.showMessage(error.getError());
-                    view.showOnErrorOnEmpty();
+                    view.showMessage(response.code()+" - "+error.getError());
                 }
-                view.showProgressDialog(false);
+
             }
 
             @Override
             public void onFailure(Call<AssignmentItem> call, Throwable t) {
+                view.showProgressDialog(false);
                 view.showMessage( "FAIL...");
                 t.printStackTrace();
             }
@@ -67,18 +68,19 @@ public class ShelfToTrollyPresenter implements ShelfToTrollyContract.Presenter,C
         call.enqueue(new Callback<JobsResponse>() {
             @Override
             public void onResponse(Call<JobsResponse> call, Response<JobsResponse> response) {
+                view.showProgressDialog(false);
                 if (response.code() == 200) {
                     view.showJobs(response.body().getJob());
                 } else {
                     APIError error = Util.parseError(response);
-                    view.showMessage(error.getError());
-                    view.showOnErrorOnEmpty();
+                    view.showMessage(response.code()+" - "+error.getError());
                 }
-                view.showProgressDialog(false);
+
             }
 
             @Override
             public void onFailure(Call<JobsResponse> call, Throwable t) {
+                view.showProgressDialog(false);
                 view.showMessage( "FAIL...");
                 t.printStackTrace();
             }
@@ -97,7 +99,7 @@ public class ShelfToTrollyPresenter implements ShelfToTrollyContract.Presenter,C
                 if (response.code() == 200) {
                     view.onScanResultPushed();
                 } else {
-                    view.showMessage( String.valueOf(response.raw()));
+                    view.showMessage( response.code()+" - "+String.valueOf(response.raw()));
                     Log.e("error", String.valueOf(response.raw()));
                 }
             }

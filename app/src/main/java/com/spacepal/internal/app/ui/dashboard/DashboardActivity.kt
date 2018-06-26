@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import com.roadhourse.spacepal.ui.dashboard.OrderListFragment
 import com.spacepal.internal.app.BaseActivity
 import com.spacepal.internal.app.R
@@ -56,7 +55,6 @@ class DashboardActivity : BaseActivity() {
 
         when (item.itemId) {
             R.id.action_search -> {
-                Toast.makeText(this, "worked", Toast.LENGTH_LONG).show()
                 startActivity(Intent(this, ProfileActivity::class.java))
                 return true
             }

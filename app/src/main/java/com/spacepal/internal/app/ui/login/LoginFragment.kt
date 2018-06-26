@@ -8,6 +8,7 @@ import com.spacepal.internal.app.BaseFragment
 import com.spacepal.internal.app.Constant.ROLE_DRIVER
 import com.spacepal.internal.app.Constant.ROLE_PICKER
 import com.spacepal.internal.app.R
+import com.spacepal.internal.app.SpacePalApplication
 import com.spacepal.internal.app.model.Profile
 import com.spacepal.internal.app.model.response.TokenResponse
 import com.spacepal.internal.app.ui.dashboard.DashboardActivity
@@ -29,6 +30,8 @@ class LoginFragment : BaseFragment(), LoginContract.View {
     override fun initUI(view: View) {
         btnLogin.setOnClickListener { onLoginClick() }
         textViewForgotPassword.setOnClickListener { onForgotPassClick() }
+        if(presenter!=null)
+        autoLogin();
     }
 
     override fun setPresenter(presenter: LoginContract.Presenter) {
@@ -42,6 +45,7 @@ class LoginFragment : BaseFragment(), LoginContract.View {
             if (role!!.toUpperCase() == ROLE_PICKER || role.toUpperCase() == ROLE_DRIVER) {
                 accessible = true
                 var profile = PreferenceUtil.getInstance(this.activity!!).account
+                PreferenceUtil.getInstance(this.activity!!).account.isSignIn=true;
                 Log.e("address is ", profile.email)
                 break
             }
@@ -87,6 +91,14 @@ class LoginFragment : BaseFragment(), LoginContract.View {
 
     private fun onLoginClick() {
         presenter.getToken(editTextEmail.text.toString(), editTextPassword.text.toString())
+    }
+
+    private fun autoLogin(){
+
+        var username = PreferenceUtil.getInstance(SpacePalApplication.getInstance()).username;
+        var password = PreferenceUtil.getInstance(SpacePalApplication.getInstance()).password;
+        if(!username.isEmpty() && !password.isEmpty())
+            presenter.getToken(username,password)
     }
 
     private fun onForgotPassClick() {

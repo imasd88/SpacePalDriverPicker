@@ -38,18 +38,18 @@ public class ScanTrollyToShelfPresenter implements ScanTrollyToShelfContract.Pre
         call.enqueue(new Callback<JobsResponse>() {
             @Override
             public void onResponse(Call<JobsResponse> call, Response<JobsResponse> response) {
+                view.showProgressDialog(false);
                 if (response.code() == 200) {
                     view.showAssignmentBundle(response.body().getJob());
                 } else {
                     APIError error = Util.parseError(response);
-                    view.showMessage(error.getError());
-                    view.showOnErrorOnEmpty();
+                    view.showMessage(response.code()+" - "+error.getError());
                 }
-                view.showProgressDialog(false);
             }
 
             @Override
             public void onFailure(Call<JobsResponse> call, Throwable t) {
+                view.showProgressDialog(false);
                 view.showMessage("FAIL...");
                 t.printStackTrace();
             }
@@ -69,7 +69,7 @@ public class ScanTrollyToShelfPresenter implements ScanTrollyToShelfContract.Pre
                     view.onScanResultPushed();
                 } else {
                     APIError error = Util.parseError(response);
-                    view.showMessage(error.getError());
+                    view.showMessage(response.code()+" - "+error.getError());
                 }
 
             }

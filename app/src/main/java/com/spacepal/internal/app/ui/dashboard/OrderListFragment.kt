@@ -7,11 +7,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
 import com.spacepal.internal.app.BaseFragment
+import com.spacepal.internal.app.Constant
 import com.spacepal.internal.app.R
 import com.spacepal.internal.app.model.adapter.OrderAdapter
 import com.spacepal.internal.app.model.response.AssignmentItem
 import com.spacepal.internal.app.ui.dashboard.OrderListContract
+import java_version.bay_to_shelf.BayToShelfActivity
 import java_version.job.JobActivity
+import java_version.shelf_to_bay.ShelfToBayActivity
 import kotlinx.android.synthetic.main.fragment_jobs_list.*
 
 
@@ -52,7 +55,19 @@ class OrderListFragment : BaseFragment(), OrderListContract.View, OrderAdapter.O
 
     override fun onItemClick(position: Int) {
         var i = Intent()
-        i.setClass(activity, JobActivity::class.java)
+        if(mListAssignmentItem!![position]?.assignmentType.equals(Constant.AssignmentType.BUNDLE_TO_BAY))
+            i.setClass(activity, JobActivity::class.java)
+
+        else  if(mListAssignmentItem!![position]?.assignmentType.equals(Constant.AssignmentType.SHELF_TO_BAY))
+            i.setClass(activity, ShelfToBayActivity::class.java)
+
+        else  if(mListAssignmentItem!![position]?.assignmentType.equals(Constant.AssignmentType.TO_CUSTOMER))
+            i.setClass(activity, BayToShelfActivity::class.java)
+
+        else
+            i.setClass(activity, JobActivity::class.java)
+
+
         i.putExtra("Assignment", mListAssignmentItem!![position])
         startActivity(i)
 

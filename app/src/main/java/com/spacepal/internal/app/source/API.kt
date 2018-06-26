@@ -54,22 +54,22 @@ interface API {
     fun getJobs(@Query("assignmentId") assignmentId: String): Call<JobsResponse>
 
     @POST("/v1/Assignment/{id}/ScanToOrder")
-    fun scanToOrder(@Path("id") assignmentId: String, @Query("inventoryId") inventoryId: String): Call<Void>
+    fun scanToOrder(@Path("id") assignmentId: String, @Query("InventoryId") inventoryId: String): Call<Void>
 
-    @POST("/v1/Appointment/{id}/PrintBundle")
+    @POST("/v1/Assignment/{id}/PrintBundle")
     fun printSticker(@Path("id") appointmentId:String): Call<Void>
 
     @POST("/v1/Assignment/{id}/ScanBundleToBay")
     fun scanToBay(@Path("id") assignmentId: String,@Query("bayId") bayId: String): Call<Void>
 
     @POST("/v1/Assignment/{id}/ScanToTrolly")
-    fun scanToTrolly(@Path("id") assignmentId: String, @Query("inventoryId") inventoryId: String): Call<Void>
+    fun scanToTrolly(@Path("id") assignmentId: String, @Query("InventoryId") inventoryId: String): Call<Void>
 
     @POST("/v1/Assignment/{id}/ScanTrollyToBay")
-    fun scanTrollyToBay(@Path("id") assignmentId: String, @Query("inventoryId") inventoryId: String, @Query("bayId") bayId: String): Call<Void>
+    fun scanTrollyToBay(@Path("id") assignmentId: String, @Query("InventoryId") inventoryId: String, @Query("bayId") bayId: String): Call<Void>
 
     @POST("/v1/Assignment/{id}/ScanTrollyToShelf")
-    fun scanTrollyToShelf(@Path("id") assignmentId: String, @Query("inventoryId") inventoryId: String, @Query("shelfId") shelfId: String): Call<Void>
+    fun scanTrollyToShelf(@Path("id") assignmentId: String, @Query("InventoryId") inventoryId: String, @Query("shelfId") shelfId: String): Call<Void>
 
 }
 

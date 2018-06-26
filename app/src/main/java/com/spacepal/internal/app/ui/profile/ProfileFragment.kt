@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.spacepal.internal.app.BaseFragment
 import com.spacepal.internal.app.R
+import com.spacepal.internal.app.SpacePalApplication
 import com.spacepal.internal.app.model.Profile
 import com.spacepal.internal.app.ui.changepassword.ChangePasswordActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -22,7 +23,7 @@ public class ProfileFragment : BaseFragment(), ProfileContract.View {
             startActivity(Intent(mBaseActivity, ChangePasswordActivity::class.java))
         }
         tvLogout.setOnClickListener {
-            //logout code
+            SpacePalApplication.getInstance().logout();
         }
     }
 

@@ -72,6 +72,8 @@ class LoginPresenter(private val loginView: LoginContract.View, private var pref
             override fun onResponse(call: Call<TokenResponse>, response: Response<TokenResponse>) {
 //                loginView.showProgressDialog(false)
                 if (response.code() == 200) {
+                    preferenceUtil.savePassword(password);
+                    preferenceUtil.saveEmail(username);
                     loginView.tokenRetrieved(response.body()!!)
 
                 } else {

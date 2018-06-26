@@ -11,6 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".SpacePalApplication"
         android:theme="@style/AppTheme">
         <activity android:name="com.roadhourse.spacepal.ui.login.LoginActivity">
             <intent-filter>
@@ -45,6 +46,18 @@
             android:label="Jobs"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
+        <activity
+            android:name="java_version.bay_to_shelf.BayToShelfActivity"
+            android:label="Bay To Shelf"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="java_version.shelf_to_bay.ShelfToBayActivity"
+            android:label="Shelf To Bay"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
         <activity
             android:name="java_version.scanner.QrScannerActivity"
             android:label="Scan"

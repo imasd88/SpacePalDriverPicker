@@ -46,6 +46,7 @@ public class ScanBundleToBayAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.tvTitle.setText(job.getProductTitle());
+            if(job.getInventoryId()!=null)
             viewHolder.tvRef.setText("Ref: "+ Util.getReference(job.getInventoryId()));
            // viewHolder.tvItemStatus.setText();
             viewHolder.cbJob.setChecked(job.getCompletedDateTimeUtc()!=null?true:false);

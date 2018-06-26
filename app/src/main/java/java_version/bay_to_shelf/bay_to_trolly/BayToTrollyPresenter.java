@@ -41,18 +41,18 @@ public class BayToTrollyPresenter implements BayToTrollyContract.Presenter,Const
         call.enqueue(new Callback<AssignmentItem>() {
             @Override
             public void onResponse(Call<AssignmentItem> call, Response<AssignmentItem> response) {
+                view.showProgressDialog(false);
                 if (response.code() == 200) {
                     view.showAssignment(response.body());
                 } else {
                     APIError error = Util.parseError(response);
-                    view.showMessage(error.getError());
-                    view.showOnErrorOnEmpty();
+                    view.showMessage(response.code()+" - "+error.getError());
                 }
-                view.showProgressDialog(false);
             }
 
             @Override
             public void onFailure(Call<AssignmentItem> call, Throwable t) {
+                view.showProgressDialog(false);
                 view.showMessage( "FAIL...");
                 t.printStackTrace();
             }
@@ -67,18 +67,18 @@ public class BayToTrollyPresenter implements BayToTrollyContract.Presenter,Const
         call.enqueue(new Callback<JobsResponse>() {
             @Override
             public void onResponse(Call<JobsResponse> call, Response<JobsResponse> response) {
+                view.showProgressDialog(false);
                 if (response.code() == 200) {
                     view.showJobs(response.body().getJob());
                 } else {
                     APIError error = Util.parseError(response);
-                    view.showMessage(error.getError());
-                    view.showOnErrorOnEmpty();
+                    view.showMessage(response.code()+" - "+error.getError());
                 }
-                view.showProgressDialog(false);
             }
 
             @Override
             public void onFailure(Call<JobsResponse> call, Throwable t) {
+                view.showProgressDialog(false);
                 view.showMessage( "FAIL...");
                 t.printStackTrace();
             }

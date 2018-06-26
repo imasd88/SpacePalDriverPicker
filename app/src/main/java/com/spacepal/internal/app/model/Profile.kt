@@ -41,5 +41,5 @@ data class Profile(
         @field:SerializedName("email")
         val email: String? = null,
         @Expose(serialize = false)
-        val isSignIn: Boolean = false
+        var isSignIn: Boolean = false
 )

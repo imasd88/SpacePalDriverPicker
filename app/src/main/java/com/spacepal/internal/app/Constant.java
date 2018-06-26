@@ -17,6 +17,15 @@ public interface Constant {
     int PRIORITY_M=0;
     int PRIORITY_L=-1;
 
+    interface AssignmentType{
+        String INITIAL_SCAN="INITIAL_SCAN";
+        String SHELF_TO_BAY="SHELF_TO_BAY";
+        String BUNDLE_TO_BAY="BUNDLE_TO_BAY";
+        String BAY_TO_CUSTOMER="BAY_TO_CUSTOMER";
+        String TO_ORDER="TO_ORDER";
+        String TO_CUSTOMER="TO_CUSTOMER";
+    }
+
     interface PicModes {
         String CAMERA = "Camera";
         String GALLERY = "Gallery";

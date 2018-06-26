@@ -11,7 +11,6 @@ import com.spacepal.internal.app.R;
 import com.spacepal.internal.app.model.response.AssignmentItem;
 import com.spacepal.internal.app.model.response.JobItem;
 
-import org.jetbrains.anko.ToastsKt;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -122,12 +121,15 @@ public class ScanTrollyToShelfFragment extends BaseFragment implements ScanTroll
 
     @Override
     public void showMessage(String message) {
-        ToastsKt.toast(getContext(),message);
+        showAlert(message,true);
     }
 
     @Override
     public void showProgressDialog(Boolean isInProgress) {
-
+      /*  if (isInProgress)
+            showProgress();
+        else
+            hideProgress();*/
     }
 
     @Override

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SpacePal</string>
+    <string name="app_name">SpacePal Ops</string>
     <string name="hint_email">Email</string>
     <string name="label_password">Password</string>
     <string name="label_login">Login</string>

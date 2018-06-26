@@ -13,14 +13,13 @@ import com.spacepal.internal.app.R;
 import com.spacepal.internal.app.model.response.AssignmentItem;
 import com.spacepal.internal.app.model.response.JobItem;
 
-import org.jetbrains.anko.ToastsKt;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import java_version.BaseFragment;
-import java_version.shelf_to_bay.ShelfToBayActivity;
+import java_version.bay_to_shelf.BayToShelfActivity;
 import java_version.util.Util;
 
 /**
@@ -85,7 +84,7 @@ public class BayToTrollyFragment extends BaseFragment implements BayToTrollyCont
     public void onAttach(Context context)
     {
         super.onAttach(context);
-        this.activity = (ShelfToBayActivity)context;
+        this.activity = (BayToShelfActivity)context;
 
     }
     private void setRecyclerView(){
@@ -145,12 +144,15 @@ public class BayToTrollyFragment extends BaseFragment implements BayToTrollyCont
 
     @Override
     public void showMessage(String message) {
-        ToastsKt.toast(getContext(),message);
+        showAlert(message,true);
     }
 
     @Override
     public void showProgressDialog(Boolean isInProgress) {
-
+       /* if (isInProgress)
+            showProgress();
+        else
+            hideProgress();*/
     }
 
     @Override

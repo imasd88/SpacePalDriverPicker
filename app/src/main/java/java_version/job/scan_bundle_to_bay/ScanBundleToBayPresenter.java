@@ -38,19 +38,20 @@ public class ScanBundleToBayPresenter implements ScanBundleToBayContract.Present
         call.enqueue(new Callback<JobsResponse>() {
             @Override
             public void onResponse(Call<JobsResponse> call, Response<JobsResponse> response) {
+                view.showProgressDialog(false);
                 if (response.code() == 200) {
                     view.showAssignmentBundle(response.body().getJob());
                 } else {
                     APIError error = Util.parseError(response);
-                    view.showMessage(error.getError());
-                    view.showOnErrorOnEmpty();
+                    view.showMessage(response.code()+" - "+error.getError());
                 }
-                view.showProgressDialog(false);
+
             }
 
             @Override
             public void onFailure(Call<JobsResponse> call, Throwable t) {
                 view.showMessage("FAIL...");
+                view.showProgressDialog(false);
                 t.printStackTrace();
             }
         });
@@ -69,7 +70,7 @@ public class ScanBundleToBayPresenter implements ScanBundleToBayContract.Present
                     view.onScanResultPushed();
                 } else {
                     APIError error = Util.parseError(response);
-                    view.showMessage(error.getError());
+                    view.showMessage(response.code()+" - "+error.getError());
                 }
 
             }

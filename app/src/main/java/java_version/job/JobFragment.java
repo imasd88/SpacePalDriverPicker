@@ -13,7 +13,6 @@ import com.spacepal.internal.app.R;
 import com.spacepal.internal.app.model.response.AssignmentItem;
 import com.spacepal.internal.app.model.response.JobItem;
 
-import org.jetbrains.anko.ToastsKt;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -73,7 +72,7 @@ public class JobFragment extends BaseFragment implements JobContract.View{
 
         jobsListAdapter = new JobAdapter(jobs, getActivity());
         jobsRecyclerView.setAdapter(jobsListAdapter);
-
+        showAssignment(assignmentItem);
     }
     @Override
     public void onAttach(Context context)
@@ -107,14 +106,8 @@ public class JobFragment extends BaseFragment implements JobContract.View{
         }
     }
 
-    // This is being called from xml
-    public void printSticker(View view){
-        presenter.printSticker(assignmentItem.getAppointmentId());
-    }
 
-    public void onLoadingBayClick(View view){
-        ((ScanBundleToBay)activity).onLoadingBayClick(assignmentItem);
-    }
+
 
     @Override
     public void setPresenter(JobContract.Presenter presenter) {
@@ -150,12 +143,16 @@ public class JobFragment extends BaseFragment implements JobContract.View{
 
     @Override
     public void showMessage(String message) {
-        ToastsKt.toast(getContext(),message);
+       // ToastsKt.toast(getContext(),message);
+        showAlert(message,true);
     }
 
     @Override
     public void showProgressDialog(Boolean isInProgress) {
-
+      /*  if (isInProgress)
+            showProgress();
+        else
+            hideProgress();*/
     }
 
     @Override
@@ -173,7 +170,4 @@ public class JobFragment extends BaseFragment implements JobContract.View{
         return true;
     }
 
-    public interface ScanBundleToBay{
-         void onLoadingBayClick(AssignmentItem item);
-    }
 }
