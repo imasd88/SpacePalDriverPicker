@@ -16,4 +16,10 @@ public interface Constant {
     int PRIORITY_H=1;
     int PRIORITY_M=0;
     int PRIORITY_L=-1;
+
+    interface PicModes {
+        String CAMERA = "Camera";
+        String GALLERY = "Gallery";
+        String CANCEL = "Cancel";
+    }
 }
