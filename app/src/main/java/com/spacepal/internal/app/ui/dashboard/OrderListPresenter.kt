@@ -1,7 +1,7 @@
 package com.spacepal.internal.app.ui.dashboard
 
+import com.spacepal.internal.app.SpacePalApplication
 import com.spacepal.internal.app.model.response.AssignmentResponse
-import com.spacepal.internal.app.source.RetrofitHelper
 import com.spacepal.internal.app.util.PreferenceUtil
 import com.spacepal.internal.app.util.Util
 import retrofit2.Call
@@ -19,7 +19,7 @@ class OrderListPresenter(private val view: OrderListContract.View, private val p
 
     override fun getOrders(userId: String,role: String) {
         view.showProgressDialog(false)
-        val call = RetrofitHelper.instance!!.api!!.getOrders(userId,role)
+        val call = SpacePalApplication.instance.api.getOrders(userId,role)
         call.enqueue(object : Callback<AssignmentResponse> {
             override fun onResponse(call: Call<AssignmentResponse>, response: Response<AssignmentResponse>) {
                 if (response.code() == 200) {

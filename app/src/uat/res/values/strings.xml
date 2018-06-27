@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">[D]SpacePal Ops</string>
+    <string name="base_url">http://api-spa.uat.roadhouse.com.au</string>
+    <string name="identity_url">https://identity-spa.uat.roadhouse.com.au</string>
+
+</resources>

@@ -3,10 +3,10 @@ package java_version.job;
 import android.util.Log;
 
 import com.spacepal.internal.app.Constant;
+import com.spacepal.internal.app.SpacePalApplication;
 import com.spacepal.internal.app.model.response.APIError;
 import com.spacepal.internal.app.model.response.AssignmentItem;
 import com.spacepal.internal.app.model.response.JobsResponse;
-import com.spacepal.internal.app.source.RetrofitHelper;
 
 import java_version.util.Util;
 import retrofit2.Call;
@@ -36,8 +36,8 @@ public class JobPresenter implements JobContract.Presenter,Constant {
     @Override
     public void getAssignment(String assignmentId) {
         view.showProgressDialog(true);
-
-        Call<AssignmentItem>  call = RetrofitHelper.Companion.getInstance().getApi().getAssignment(assignmentId);
+        
+        Call<AssignmentItem>  call = SpacePalApplication.Companion.getInstance().getApi().getAssignment(assignmentId);
         call.enqueue(new Callback<AssignmentItem>() {
             @Override
             public void onResponse(Call<AssignmentItem> call, Response<AssignmentItem> response) {
@@ -63,7 +63,7 @@ public class JobPresenter implements JobContract.Presenter,Constant {
     public void getJobs(String assignmentId) {
         view.showProgressDialog(true);
 
-        Call<JobsResponse>  call = RetrofitHelper.Companion.getInstance().getApi().getJobs(assignmentId);
+        Call<JobsResponse>  call = SpacePalApplication.Companion.getInstance().getApi().getJobs(assignmentId);
         call.enqueue(new Callback<JobsResponse>() {
             @Override
             public void onResponse(Call<JobsResponse> call, Response<JobsResponse> response) {
@@ -88,7 +88,7 @@ public class JobPresenter implements JobContract.Presenter,Constant {
     @Override
     public void scanToOrder(String assignmentId,String inventoryId) {
         view.showProgressDialog(true);
-        Call<Void>  call = RetrofitHelper.Companion.getInstance().getApi().scanToOrder(assignmentId,inventoryId);
+        Call<Void>  call = SpacePalApplication.Companion.getInstance().getApi().scanToOrder(assignmentId,inventoryId);
         call.enqueue(new Callback<Void>() {
 
             @Override
@@ -115,7 +115,7 @@ public class JobPresenter implements JobContract.Presenter,Constant {
     @Override
     public void printSticker(String appointmentId) {
         view.showProgressDialog(true);
-        Call<Void>  call = RetrofitHelper.Companion.getInstance().getApi().printSticker(appointmentId);
+        Call<Void>  call = SpacePalApplication.Companion.getInstance().getApi().printSticker(appointmentId);
         call.enqueue(new Callback<Void>() {
 
             @Override

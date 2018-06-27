@@ -7,11 +7,10 @@ import com.spacepal.internal.app.model.Role
 import com.spacepal.internal.app.model.response.AssignmentItem
 import com.spacepal.internal.app.model.response.AssignmentResponse
 import com.spacepal.internal.app.model.response.JobsResponse
-import com.spacepal.internal.app.model.response.TokenResponse
 import retrofit2.Call
 import retrofit2.http.*
 
-interface API {
+interface Api {
 
     /*******************Roles */
 
@@ -20,14 +19,6 @@ interface API {
 
     @get:GET("/v1/User/Me")
     val account: Call<Profile>
-
-    @POST("/connect/token")
-    @FormUrlEncoded
-    fun getToken(@Field("username") username: String, @Field("password") password: String,
-                 @Field("client_id") clientId: String,
-                 @Field("client_secret") clientSecret: String,
-                 @Field("grant_type") grantType: String): Call<TokenResponse>
-
 
     @POST("/v1/User/forgot-password")
     fun forgotPass(@Body email: EmailBody): Call<Void>

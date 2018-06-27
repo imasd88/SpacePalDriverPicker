@@ -14,8 +14,54 @@ android {
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
+
+    signingConfigs {
+        debug {
+            storeFile file("spacepal_keystore.jks")
+            storePassword "spacepal663"
+            keyAlias "debug"
+            keyPassword "663spacepal"
+        }
+
+        staging {
+            storeFile file("spacepal_keystore.jks")
+            storePassword "spacepal663"
+            keyAlias "debug"
+            keyPassword "663spacepal"
+        }
+
+        uat {
+            storeFile file("spacepal_keystore.jks")
+            storePassword "spacepal663"
+            keyAlias "uat"
+            keyPassword "663spacepal"
+        }
+
         release {
+            storeFile file("spacepal_keystore.jks")
+            storePassword "spacepal663"
+            keyAlias "production"
+            keyPassword "663spacepal"
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig = signingConfigs.debug
+            applicationIdSuffix ".debug"
+        }
+
+        staging {
+            signingConfig = signingConfigs.debug
+            applicationIdSuffix ".staging"
+        }
+
+        uat {
+            signingConfig = signingConfigs.uat
+            applicationIdSuffix ".uat"
+        }
+        release {
+            signingConfig = signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

@@ -54,6 +54,8 @@ class LoginFragment : BaseFragment(), LoginContract.View {
             PreferenceUtil.getInstance(this!!.activity!!).saveAccount(profile)
             val intent = Intent(context, DashboardActivity::class.java)
             startActivity(intent)
+            activity?.finish()
+
         } else
 //            Toast.makeText(activity, "Don't have privilege to access this app", Toast.LENGTH_SHORT).show()
             showAlert("You don't have privilege to access this app", true)
@@ -95,8 +97,8 @@ class LoginFragment : BaseFragment(), LoginContract.View {
 
     private fun autoLogin(){
 
-        var username = PreferenceUtil.getInstance(SpacePalApplication.getInstance()).username;
-        var password = PreferenceUtil.getInstance(SpacePalApplication.getInstance()).password;
+        var username = PreferenceUtil.getInstance(SpacePalApplication.instance).username;
+        var password = PreferenceUtil.getInstance(SpacePalApplication.instance).password;
         if(!username.isEmpty() && !password.isEmpty())
             presenter.getToken(username,password)
     }

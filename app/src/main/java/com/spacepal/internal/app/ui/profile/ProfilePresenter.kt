@@ -2,8 +2,8 @@ package com.spacepal.internal.app.ui.profile
 
 import android.util.Log
 import com.spacepal.internal.app.Constant
+import com.spacepal.internal.app.SpacePalApplication
 import com.spacepal.internal.app.model.Profile
-import com.spacepal.internal.app.source.RetrofitHelper
 import com.spacepal.internal.app.util.PreferenceUtil
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,7 +14,7 @@ class ProfilePresenter(private val profileView: ProfileContract.View, private va
 
 
     override fun submit(profile: Profile) {
-        val call = RetrofitHelper.instance!!.api.updateAccount(profile)
+        val call = SpacePalApplication.instance.api.updateAccount(profile)
         call.enqueue(object : Callback<Void> {
 
             override fun onResponse(call: Call<Void>?, response: Response<Void>?) {

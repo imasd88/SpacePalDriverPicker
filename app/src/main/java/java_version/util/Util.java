@@ -8,13 +8,12 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Patterns;
 
+import com.spacepal.internal.app.SpacePalApplication;
 import com.spacepal.internal.app.model.response.APIError;
 import com.spacepal.internal.app.model.response.TokenResponse;
-import com.spacepal.internal.app.source.RetrofitHelper;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.lang.annotation.Annotation;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
@@ -26,8 +25,6 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import okhttp3.ResponseBody;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 
@@ -234,13 +231,10 @@ public class Util {
 
     public static APIError parseError(Response<?> response) {
 
-
-        Converter<ResponseBody, APIError> converter =
-               RetrofitHelper.Companion.getInstance().getRetrofit().responseBodyConverter(APIError.class, new Annotation[0]);
         APIError error;
 
         try {
-            error = converter.convert(response.errorBody());
+            error = SpacePalApplication.instance.gson.fromJson(response.errorBody().string(), APIError.class);
         } catch (IOException e) {
             e.printStackTrace();
             return new APIError();

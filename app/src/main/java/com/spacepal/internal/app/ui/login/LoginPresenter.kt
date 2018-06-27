@@ -2,9 +2,9 @@ package com.spacepal.internal.app.ui.login
 
 import com.spacepal.internal.app.Constant
 import com.spacepal.internal.app.Constant.*
+import com.spacepal.internal.app.SpacePalApplication
 import com.spacepal.internal.app.model.Profile
 import com.spacepal.internal.app.model.response.TokenResponse
-import com.spacepal.internal.app.source.RetrofitHelper
 import com.spacepal.internal.app.util.PreferenceUtil
 import com.spacepal.internal.app.util.Util
 import retrofit2.Call
@@ -23,7 +23,7 @@ class LoginPresenter(private val loginView: LoginContract.View, private var pref
     override fun signIn() {
 //        loginView.showProgressDialog(true)
 
-        val call = RetrofitHelper.instance!!.api.account
+        val call = SpacePalApplication.instance.api.account
         call.enqueue(object : Callback<Profile> {
             override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
 //                loginView.showProgressDialog(false)
@@ -67,7 +67,7 @@ class LoginPresenter(private val loginView: LoginContract.View, private var pref
 
         loginView.showProgressDialog(true)
 
-        val call = RetrofitHelper.instanceForToken!!.api.getToken(username, password, CLIENT_ID, CLIENT_SECRET, GRANT_TYPE)
+        val call = SpacePalApplication.instance.identityApi.getToken(username, password, CLIENT_ID, CLIENT_SECRET, GRANT_TYPE)
         call.enqueue(object : Callback<TokenResponse> {
             override fun onResponse(call: Call<TokenResponse>, response: Response<TokenResponse>) {
 //                loginView.showProgressDialog(false)

@@ -10,11 +10,9 @@ import android.util.Patterns
 import android.view.View
 import com.spacepal.internal.app.Constant
 import com.spacepal.internal.app.R
+import com.spacepal.internal.app.SpacePalApplication
 import com.spacepal.internal.app.model.response.APIError
 import com.spacepal.internal.app.model.response.TokenResponse
-import com.spacepal.internal.app.source.RetrofitHelper
-import okhttp3.ResponseBody
-import retrofit2.Converter
 import retrofit2.Response
 import java.io.IOException
 import java.io.UnsupportedEncodingException
@@ -189,13 +187,11 @@ object Util {
 
 
     fun parseError(response: Response<*>): APIError {
-
-        val converter: Converter<ResponseBody, APIError> = RetrofitHelper.instance!!.retrofit.responseBodyConverter(APIError::class.java, arrayOfNulls<Annotation>(0))
         val error: APIError
 
 
         try {
-            error = converter.convert(response.errorBody()!!)
+            error = SpacePalApplication.instance.gson.fromJson(response.errorBody()?.string() ?: "", APIError::class.java)
         } catch (e: IOException) {
             e.printStackTrace()
             return APIError()

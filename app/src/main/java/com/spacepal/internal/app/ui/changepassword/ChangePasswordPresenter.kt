@@ -1,7 +1,7 @@
 package com.spacepal.internal.app.ui.changepassword
 
+import com.spacepal.internal.app.SpacePalApplication
 import com.spacepal.internal.app.model.ChangePassword
-import com.spacepal.internal.app.source.RetrofitHelper
 import com.spacepal.internal.app.util.Util
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,7 +15,7 @@ class ChangePasswordPresenter(private val changePasswordView: ChangePasswordCont
 
     override fun changePasswordRequest(changePassword: ChangePassword) {
         changePasswordView.showProgressDialog(true)
-        val call = RetrofitHelper.instance!!.api.changePassword(changePassword)
+        val call = SpacePalApplication.instance.api.changePassword(changePassword)
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.code() == 200) {

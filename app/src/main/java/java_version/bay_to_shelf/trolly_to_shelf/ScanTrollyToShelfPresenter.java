@@ -1,9 +1,9 @@
 package java_version.bay_to_shelf.trolly_to_shelf;
 
 import com.spacepal.internal.app.Constant;
+import com.spacepal.internal.app.SpacePalApplication;
 import com.spacepal.internal.app.model.response.APIError;
 import com.spacepal.internal.app.model.response.JobsResponse;
-import com.spacepal.internal.app.source.RetrofitHelper;
 
 import java_version.util.Util;
 import retrofit2.Call;
@@ -34,7 +34,7 @@ public class ScanTrollyToShelfPresenter implements ScanTrollyToShelfContract.Pre
     public void getJobs(String assignmentId) {
         view.showProgressDialog(true);
 
-        Call<JobsResponse> call = RetrofitHelper.Companion.getInstance().getApi().getJobs(assignmentId);
+        Call<JobsResponse> call = SpacePalApplication.Companion.getInstance().getApi().getJobs(assignmentId);
         call.enqueue(new Callback<JobsResponse>() {
             @Override
             public void onResponse(Call<JobsResponse> call, Response<JobsResponse> response) {
@@ -59,7 +59,7 @@ public class ScanTrollyToShelfPresenter implements ScanTrollyToShelfContract.Pre
     @Override
     public void scanTrollyToShelf(String assignmentId,String inventoryId,String shelfId) {
         view.showProgressDialog(true);
-        Call<Void> call = RetrofitHelper.Companion.getInstance().getApi().scanTrollyToShelf(assignmentId,inventoryId,shelfId);
+        Call<Void> call = SpacePalApplication.Companion.getInstance().getApi().scanTrollyToShelf(assignmentId,inventoryId,shelfId);
         call.enqueue(new Callback<Void>() {
 
             @Override

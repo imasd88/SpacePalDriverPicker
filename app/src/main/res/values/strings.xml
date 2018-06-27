@@ -24,4 +24,7 @@
     <string name="load_complete">Load Completed</string>
     <string name="pick_complete">Pick Complete</string>
 
+    <string name="base_url"/>
+    <string name="identity_url"/>
+
 </resources>

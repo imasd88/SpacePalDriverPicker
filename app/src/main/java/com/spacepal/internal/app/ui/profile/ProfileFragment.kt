@@ -23,7 +23,7 @@ public class ProfileFragment : BaseFragment(), ProfileContract.View {
             startActivity(Intent(mBaseActivity, ChangePasswordActivity::class.java))
         }
         tvLogout.setOnClickListener {
-            SpacePalApplication.getInstance().logout();
+            SpacePalApplication.instance.logout();
         }
     }
 

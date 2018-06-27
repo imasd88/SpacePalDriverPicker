@@ -3,10 +3,10 @@ package java_version.shelf_to_bay.shelf_to_trolly;
 import android.util.Log;
 
 import com.spacepal.internal.app.Constant;
+import com.spacepal.internal.app.SpacePalApplication;
 import com.spacepal.internal.app.model.response.APIError;
 import com.spacepal.internal.app.model.response.AssignmentItem;
 import com.spacepal.internal.app.model.response.JobsResponse;
-import com.spacepal.internal.app.source.RetrofitHelper;
 
 import java_version.util.Util;
 import retrofit2.Call;
@@ -37,7 +37,7 @@ public class ShelfToTrollyPresenter implements ShelfToTrollyContract.Presenter,C
     public void getAssignment(String assignmentId) {
         view.showProgressDialog(true);
 
-        Call<AssignmentItem>  call = RetrofitHelper.Companion.getInstance().getApi().getAssignment(assignmentId);
+        Call<AssignmentItem>  call = SpacePalApplication.Companion.getInstance().getApi().getAssignment(assignmentId);
         call.enqueue(new Callback<AssignmentItem>() {
             @Override
             public void onResponse(Call<AssignmentItem> call, Response<AssignmentItem> response) {
@@ -64,7 +64,7 @@ public class ShelfToTrollyPresenter implements ShelfToTrollyContract.Presenter,C
     public void getJobs(String assignmentId) {
         view.showProgressDialog(true);
 
-        Call<JobsResponse>  call = RetrofitHelper.Companion.getInstance().getApi().getJobs(assignmentId);
+        Call<JobsResponse>  call = SpacePalApplication.Companion.getInstance().getApi().getJobs(assignmentId);
         call.enqueue(new Callback<JobsResponse>() {
             @Override
             public void onResponse(Call<JobsResponse> call, Response<JobsResponse> response) {
@@ -90,7 +90,7 @@ public class ShelfToTrollyPresenter implements ShelfToTrollyContract.Presenter,C
     @Override
     public void scanToTrolly(String assignmentId,String inventoryId) {
         view.showProgressDialog(true);
-        Call<Void>  call = RetrofitHelper.Companion.getInstance().getApi().scanToTrolly(assignmentId,inventoryId);
+        Call<Void>  call = SpacePalApplication.Companion.getInstance().getApi().scanToTrolly(assignmentId,inventoryId);
         call.enqueue(new Callback<Void>() {
 
             @Override
